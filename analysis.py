@@ -20,9 +20,9 @@ icd_DGNS_code9 = data['ICD_DGNS_CD9']
 icd_DGNS_code10 = data['ICD_DGNS_CD10']
 
 #ICD_prcdr_codes
-icd_prcdr_codes5 = data['ICD_PRCDR_CD5']
-icd_prcdr_codes7 = data['ICD_PRCDR_CD7']
-icd_prcdr_codes10 = data['ICD_PRCDR_CD10']
+icd_prcdr_code5 = data['ICD_PRCDR_CD5']
+icd_prcdr_code7 = data['ICD_PRCDR_CD7']
+icd_prcdr_code10 = data['ICD_PRCDR_CD10']
 
 #CLM_DRG_CD
 clm_drg_code = data['CLM_DRG_CD']
@@ -43,13 +43,13 @@ icd_DGNS_frequency10 = icd_DGNS_code10.value_counts()
 print("ICD Codes Frequency:\n", icd_DGNS_frequency10)
 
 # Frequency count for ICD_PRCDR codes
-icd_prcdr_frequency5 = icd_DGNS_code8.value_counts()
+icd_prcdr_frequency5 = icd_prcdr_code5.value_counts()
 print("ICD Codes Frequency:\n", icd_prcdr_frequency5)
 
-icd_prcdr_frequency7 = icd_DGNS_code9.value_counts()
+icd_prcdr_frequency7 = icd_prcdr_code7.value_counts()
 print("ICD Codes Frequency:\n", icd_prcdr_frequency7)
 
-icd_prcdr_frequency10 = icd_DGNS_code10.value_counts()
+icd_prcdr_frequency10 = icd_prcdr_code10.value_counts()
 print("ICD Codes Frequency:\n", icd_prcdr_frequency10)
 
 # Frequency count for DRG codes
@@ -64,13 +64,13 @@ print("HCPCS Codes Frequency:\n", hcpcs_frequency)
 # Check for missing values in codex-related columns
 #ICD_DGNS codes
 missing_icd_DGNS_code8 = icd_DGNS_code8.isnull().sum()
-missing_icd_DGNS_code9 = icd_DGNS_code8.isnull().sum()
-missing_icd_DGNS_code10 = icd_DGNS_code8.isnull().sum()
+missing_icd_DGNS_code9 = icd_DGNS_code9.isnull().sum()
+missing_icd_DGNS_code10 = icd_DGNS_code10.isnull().sum()
 
 #ICD_prcdr codes
-missing_icd_prcdr_code5 = icd_DGNS_code8.isnull().sum()
-missing_icd_prcdr_code7 = icd_DGNS_code8.isnull().sum()
-missing_icd_prcdr_code10 = icd_DGNS_code8.isnull().sum()
+missing_icd_prcdr_code5 = icd_prcdr_code5.isnull().sum()
+missing_icd_prcdr_code7 = icd_prcdr_code7.isnull().sum()
+missing_icd_prcdr_code10 = icd_prcdr_code10.isnull().sum()
 
 #Drug_code
 missing_drg = clm_drg_code.isnull().sum()
@@ -88,14 +88,17 @@ print(f"Missing CLM DRUG Codes: {missing_drg}")
 print(f"Missing HCPCS Codes: {missing_hcpcs}")
 
 # Example of handling missing data by filling with a placeholder
-data['ICD_DGNS_CD8'].fillna('MISSING', inplace=True)
-data['ICD_DGNS_CD9'].fillna('MISSING', inplace=True)
-data['ICD_DGNS_CD10'].fillna('MISSING', inplace=True)
-data['ICD_DGNS_CD5'].fillna('MISSING', inplace=True)
-data['ICD_DGNS_CD7'].fillna('MISSING', inplace=True)
-data['ICD_DGNS_CD10'].fillna('MISSING', inplace=True)
-data['CLM_DRG_CD'].fillna('MISSING', inplace=True)
-data['HCPCS_CODE'].fillna('MISSING', inplace=True)
+#data['ICD_DGNS_CD8'].fillna('MISSING', inplace=True)
+# Not sure if this is the fix but it doesnt give error. DOnt think this working. Pandas website doesnt give enough info for quick fix.
+data.fillna({'ICD_DGNS_CD8': 'Missing'},inplace=True)
+data.fillna({'ICD_DGNS_CD9': 'Missing'},inplace=True)
+data.fillna({'ICD_DGNS_CD10': 'Missing'},inplace=True)
+data.fillna({'ICD_PRCDR_CD5': 'Missing'},inplace=True)
+data.fillna({'ICD_PRCDR_CD7': 'Missing'},inplace=True)
+data.fillna({'ICD_PRCDR_CD10': 'Missing'},inplace=True)
+data.fillna({'CLM_DRG_CD': 'Missing'},inplace=True)
+data.fillna({'HCPCS_CD': 'Missing'},inplace=True)
+
 
 # Step 5: Summary of Findings
 # Provide a summary of the most common codes
