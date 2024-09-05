@@ -38,7 +38,7 @@ Check for missing values in codex-related columns
 
 Handled missing data by filling with a placeholder
 ``` python
-    data['ICD_DGNS_CD8'].fillna('MISSING', inplace=True)
+    data.fillna({'ICD_DGNS_CD8': 'Missing'},inplace=True)
 ```
 
 Print the top 5 most common codes for each category
